@@ -1,0 +1,21 @@
+service: transaction
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  memorySize: 512
+  timeout: 10
+
+functions:
+  handler:
+    handler: handler.addTransaction
+    environment:
+      DB_URL: mongodb://serverless:nrzJYEtsDrRGwQG8Asuv@ds259089.mlab.com:59089/italianlunch-stage
+    events:
+      - http:
+          path: transactions/send
+          method: post
+
+plugins:
+  - serverless-plugin-typescript
